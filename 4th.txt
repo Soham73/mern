@@ -1,0 +1,27 @@
+const http = require('http');
+
+const port = 8000;
+
+const server = http.createServer((req, res) => {
+    // route handling - set headers per route
+    if (req.url === "/") {
+        res.writeHead(200, { "content-type": "text/plain" });
+        res.end("Welcome to index page");
+    } 
+    else if (req.url === "/about") {
+        res.writeHead(200, { "content-type": "text/plain" });
+        res.end("This is about us page");
+    }
+    else if (req.url === "/contact") {
+        res.writeHead(200, { "content-type": "text/plain" });
+        res.end("Contact us");
+    } 
+    else {
+        res.writeHead(404, { "content-type": "text/plain" });
+        res.end("404 not found!!");
+    }
+});
+
+server.listen(port, () => {
+    console.log("server running on port", port);
+});
