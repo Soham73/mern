@@ -1,0 +1,34 @@
+import React from "react";
+import useFetch from "./fetch.js";
+
+function Employee() {
+    const employees = useFetch("https://jsonplaceholder.typicode.com/users");
+
+    return (
+        <div>
+            <h2>Employee Data</h2>
+            <table border="1" cellPadding="8" style={{ borderCollapse: "collapse" }}>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>UserName</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {employees.map((emp) => (
+                        <tr key={emp.id}>
+                            <td>{emp.id}</td>
+                            <td>{emp.name}</td>
+                            <td>{emp.username}</td>
+                            <td>{emp.email}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+export default Employee;
