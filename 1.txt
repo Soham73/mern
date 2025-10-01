@@ -1,0 +1,147 @@
+1. Create database : use db_name
+test> use students
+switched to db students
+
+2.Create Collection
+db.createCollection("std_collection")
+{ ok: 1 }
+
+3. Display collections: show collections
+std_collection
+
+3. Create collection with insertOne()
+> db.std_collection1.insertOne({“name”:”ABC”, , , })
+
+4. Insert Single document
+db.std_collection1.insertOne({“name”:”ABC”})
+
+4. Insert Multipple documents
+db.std_collection1.insertMany([{“name”:”ABC”},{"key":"value"}])
+
+5. Delete a document
+db.collection_name.deleteOne({"key":"value"})
+OR
+db.collection_name.remove({"key":"value"})
+
+6. Updating a document
+db.collect_name.update({"key":"value"}, {$set: {"key":"value"}})
+
+7. Display all the documents
+db.collection_name.find()
+
+8. $set modifier
+db.students.update(
+  { name: "John" },
+  { $set: { age: 22 } }
+)
+
+9.  $unset – Remove a field
+db.students.update(
+  { name: "John" },
+  { $unset: { age: "" } }
+)
+
+10. $inc – Increment a value 
+db.students.update(
+  { name: "John" },
+  { $inc: { marks: 5 } }
+)
+
+11. $rename – Rename a field
+db.students.update(
+  { name: "PQR" },
+  { $rename: { "genre": "genre11" } }
+)
+
+12.$min (Sets the price to 200 only if current price > 200.)
+db.products.update(
+  { name: "PQR" },
+  { $min: { price: 1000 } }
+)
+
+db.movie.update({"name":"MNO"},{$set:{"name":"PQR"}})
+
+
+13. Sets the price to 300 only if current price < 300.
+db.products.update(
+  { name: "Book" },
+  { $max: { price: 300 } }
+)
+
+db.moviemodels.insertOne({"Genre":["Comdey", "Thriller", "Romantic"]})
+
+15. $addToSet — Add if not already in array
+Adds "Science" only if it's not already present.
+
+db.students.update(
+  { name: "John" },
+  { $addToSet: { subjects: "Science" } }
+)
+
+14. $push — Add element to array
+db.students.update(
+  { name: "John" },
+  { $push: { subjects: "Math" } }
+)
+
+16. $push with $each — Add multiple values
+db.students.update(
+  { name: "John" },
+  { $push: { subjects: { $each: ["History", "Geography"] } } }
+)
+
+17. $push with $each + $slice + $sort
+db.students.update(
+  { name: "John" },
+  {
+    $push: {
+      marks: {
+        $each: [80, 75],
+        $sort: -1,
+        $slice: 5
+      }
+    }
+  }
+)
+
+18.$pop — Remove first or last item
+// Remove last item
+db.students.update(
+  { name: "John" },
+  { $pop: { subjects: 1 } }
+)
+
+// Remove first item
+db.students.update(
+  { name: "John" },
+  { $pop: { subjects: -1 } }
+)
+
+19. $pull — Remove item(s) matching condition - Removes "Math" from subjects or any marks < 50.
+db.students.update(
+  { name: "John" },
+  { $pull: { subjects: "Math" } }
+)
+
+db.students.update(
+  { name: "John" },
+  { $pull: { marks: { $lt: 50 } } }
+)
+
+
+20. $pullAll — Remove multiple specified values 
+ db.students.update(
+  { name: "John" },
+  { $pullAll: { subjects: ["History", "Science"] } }
+)
+
+21. Using upsert: true (always prefer $set, $inc, etc., in upsert operations unless you're intentionally replacing the whole document.)
+db.students.update(
+  { name: "Alice" },               // Query
+  { $set: { age: 20 } },           // Update
+  { upsert: true }                 // Upsert option
+)
+Case 1: If Alice already exists → her age will be updated to 20.
+
+Case 2: If Alice does not exist → a new document like this will be inserted:
+
