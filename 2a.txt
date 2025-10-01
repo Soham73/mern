@@ -1,0 +1,26 @@
+import React, { Component } from "react";
+
+class Parent extends Component {
+    render() {
+        return (
+            <div>
+                <h1>This is parent class {this.props.address}</h1>
+            
+                <Child p_name="Parent Name" p_age={50} />
+            </div>
+        );
+    }
+}
+
+class Child extends Component {
+    render() {
+        return (
+            <div>
+                
+                <h1>{this.props.p_name} {this.props.p_age}</h1>
+            </div>
+        );
+    }
+}
+
+export { Parent, Child };
